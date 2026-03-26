@@ -181,12 +181,15 @@ nav.compact {
 .hero-corner::before {
   height: 2px;
   width: 100%;
+  top: 0;
+  left: 0;
 }
 
-/* vertical line */
 .hero-corner::after {
   width: 2px;
   height: 100%;
+  top: 0;
+  left: 0;
 }
 
 /* TOP LEFT */
@@ -200,23 +203,24 @@ nav.compact {
   top: 0;
   right: 0;
 }
-.hc-tr::before { right: 0; }
-.hc-tr::after { right: 0; }
+.hc-tr::before { top: 0; right: 0; }
+.hc-tr::after { top: 0; right: 0; }
 
 /* BOTTOM LEFT */
 .hc-bl {
   bottom: 0;
   left: 0;
 }
-.hc-bl::after { bottom: 0; }
+.hc-bl::before { bottom: 0; left: 0; }   /* horizontal line */
+.hc-bl::after { bottom: 0; left: 0; }    /* vertical line */
 
 /* BOTTOM RIGHT */
 .hc-br {
   bottom: 0;
   right: 0;
 }
-.hc-br::before { right: 0; }
-.hc-br::after { right: 0; bottom: 0; }
+.hc-br::before { bottom: 0; right: 0; }
+.hc-br::after { bottom: 0; right: 0; }
 
 .hero-frame {
   max-width: 900px;
@@ -672,7 +676,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
           <span>Microsoft Dynamics 365</span>
         </div>
       </div>
-      <div class="hero-scroll"><span>Scroll</span><div class="scroll-tick"></div></div>
+      <div class="hero-scroll"><span></span><div class="scroll-tick"></div></div>
       <div class="hero-corner hc-tl"></div><div class="hero-corner hc-tr"></div>
       <div class="hero-corner hc-bl"></div><div class="hero-corner hc-br"></div>
     </div>
