@@ -29,9 +29,12 @@
   --modal-bg:   rgba(11,11,11,0.98);
   --ease:       cubic-bezier(0.16, 1, 0.3, 1);
   --container-padding: 16px;
+  --content-max: 1280px;
+  --edge-offset: max(var(--container-padding), calc((100vw - var(--content-max)) / 2 + var(--container-padding)));
+  --grid-gap: 2px;
 }
 .container {
-  max-width: 1280px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: 0 var(--container-padding);
 }
@@ -79,16 +82,24 @@ body::before {
 /* ════ NAV ════ */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 500;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 28px var(--container-padding);
+  padding: 28px 0;
   transition: padding 0.5s var(--ease), background 0.5s, border-color 0.5s;
   border-bottom: 1px solid transparent;
 }
 nav.compact {
-  padding: 16px var(--container-padding);
+  padding: 16px 0;
   background: rgba(10,10,10,0.9);
   backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
   border-bottom-color: var(--border);
+}
+.nav-inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
 }
 .nav-logo {
   display: flex; align-items: center; gap: 12px;
@@ -150,10 +161,18 @@ nav.compact {
 .hero-corner::before,.hero-corner::after { content:''; position: absolute; background: var(--lime); }
 .hero-corner::before { width: 100%; height: 1px; }
 .hero-corner::after { width: 1px; height: 100%; }
-.hc-tl{top:80px;left: var(--container-padding);} .hc-tr{top:80px;right: var(--container-padding);}
+.hc-tl{top:80px;left: var(--edge-offset);} .hc-tr{top:80px;right: var(--edge-offset);}
 .hc-tr::before{right:0;} .hc-tr::after{right:0;}
-.hc-bl{bottom:10vh;left: var(--container-padding);} .hc-bl::after{bottom:0;}
-.hc-br{bottom:10vh;right: var(--container-padding);} .hc-br::before{right:0;} .hc-br::after{right:0;bottom:0;}
+.hc-bl{bottom:10vh;left: var(--edge-offset);} .hc-bl::after{bottom:0;}
+.hc-br{bottom:10vh;right: var(--edge-offset);} .hc-br::before{right:0;} .hc-br::after{right:0;bottom:0;}
+.hero-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+}
 .hero-eyebrow {
   font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--lime); font-weight: 600;
@@ -201,7 +220,7 @@ nav.compact {
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* ════ SHARED ATOMS ════ */
-.section-num { position: absolute; top: 48px; right: var(--container-padding); font-family: 'Bebas Neue', sans-serif; font-size: 0.62rem; letter-spacing: 0.22em; color: var(--faint); }
+.section-num { position: absolute; top: 48px; right: var(--edge-offset); font-family: 'Bebas Neue', sans-serif; font-size: 0.62rem; letter-spacing: 0.22em; color: var(--faint); }
 .eyebrow { font-size: 0.67rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
 .eyebrow::before { content: ''; width: 18px; height: 1px; display: block; }
 .eyebrow-lime { color: var(--lime); } .eyebrow-lime::before { background: var(--lime); }
@@ -250,7 +269,9 @@ nav.compact {
 #agents { padding: 80px 0 160px; position: relative; }
 .gallery-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 72px; gap: 20px; flex-wrap: wrap; }
 .gallery-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 5.5rem); line-height: 0.9; letter-spacing: 0.01em; margin-top: 14px; }
-.gallery-aside { text-align: right; padding-bottom: 6px; }
+.gallery-copy { display: flex; flex-direction: column; align-items: flex-start; }
+.gallery-aside { text-align: right; padding-bottom: 6px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.gallery-tags { display: flex; flex-direction: column; align-items: inherit; gap: 10px; }
 .cat-tag { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); padding: 4px 12px; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 .cat-lime { border-color: rgba(198,241,53,0.2); color: var(--lime); }
 .cat-amber { border-color: rgba(245,158,11,0.2); color: var(--amber); }
@@ -260,28 +281,18 @@ nav.compact {
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+  gap: var(--grid-gap);
 }
 .g-card,
 .ind-card {
   min-height: 320px;
-  aspect-ratio: 1 / 1;
   width: 100%;
-  object-fit: cover;
 }
 .ind-row {
-  grid-column: span 3;
+  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-.ind-card {
-  grid-column: span 1;
-}
-.ind-card:first-child {
-  grid-column: 1 / 2;
-}
-.ind-card:last-child {
-  grid-column: 3 / 4;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--grid-gap);
 }
 
 /* ── BASE CARD ── */
@@ -290,7 +301,7 @@ nav.compact {
   background: var(--surface); border: 1px solid var(--border);
   padding: 36px 38px;
   display: flex; flex-direction: column; justify-content: flex-end;
-  min-height: 300px; cursor: none;
+  min-height: 320px; cursor: none;
   transition: border-color 0.5s var(--ease);
 }
 .g-card::before {
@@ -343,8 +354,21 @@ nav.compact {
   background: var(--surface); border: 1px solid var(--border);
   padding: 48px 44px;
   display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end;
-  min-height: 280px; cursor: none;
+  min-height: 320px; cursor: none;
   transition: border-color 0.5s var(--ease);
+}
+.ind-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+}
+.ind-serial {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--faint);
+  margin-bottom: 16px;
 }
 .ind-card::before {
   content: ''; position: absolute; inset: 0;
@@ -468,7 +492,8 @@ nav.compact {
 .modal-close:hover { border-color: var(--lime); color: var(--lime); }
 
 /* ════ FOOTER ════ */
-footer { border-top: 1px solid var(--border); padding: 36px var(--container-padding); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+footer { border-top: 1px solid var(--border); padding: 36px 0; }
+footer .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
 .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 0.75rem; letter-spacing: 0.16em; color: var(--faint); }
 .footer-stack { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--faint); display: flex; gap: 20px; flex-wrap: wrap; }
 .footer-stack span::before { content: '· '; } .footer-stack span:first-child::before { content: ''; }
@@ -480,7 +505,7 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
 
 @media (max-width: 1024px) {
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .ind-row { display: contents; }
+  .ind-row { grid-template-columns: 1fr; }
   .ind-aside { display: none; }
   #modal { grid-template-columns: 1fr; max-height: none; }
   .modal-left { border-right: none; border-bottom: 1px solid var(--border); max-height: none; }
@@ -488,7 +513,7 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
 }
 
 @media (max-width: 768px) {
-  nav { padding: 16px var(--container-padding); }
+  nav { padding: 16px 0; }
   .nav-links { gap: 24px; }
   .nav-meta { display: none; }
   #hero { padding: 0 0 14vh; min-height: 560px; }
@@ -500,8 +525,8 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
   .overview-grid { grid-template-columns: 1fr; gap: 48px; }
   .gallery-grid { grid-template-columns: 1fr; }
   .g-card { padding: 28px 26px; min-height: 260px; }
-  .ind-row { display: contents; }
-  .ind-card { padding: 32px 26px; }
+  .ind-row { grid-template-columns: 1fr; }
+  .ind-card { padding: 32px 26px; min-height: 260px; }
   #modal-overlay { padding: 0; align-items: flex-end; }
   #modal { grid-template-columns: 1fr; border-radius: 0; max-height: 92vh; overflow-y: auto; transform: translateY(40px) scale(0.98); }
   #modal-overlay.open #modal { transform: translateY(0) scale(1); }
@@ -519,12 +544,12 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
 @media(max-width:480px){
   .nav-links{gap:18px;font-size:0.68rem;}
   .gallery-header{flex-direction:column;align-items:flex-start;}
-  .gallery-aside{text-align:left;}
+  .gallery-aside{text-align:left;align-items:flex-start;}
   #overview{padding-top:100px;}
   .stat-n{font-size:2.4rem;min-width:60px;}
   .modal-left{padding:28px 18px;}
   .modal-right{padding:22px 18px;}
-  footer{flex-direction:column;align-items:flex-start;gap:16px;}
+  footer .container{flex-direction:column;align-items:flex-start;gap:16px;}
   .footer-stack{gap:12px;}
 }
 </style>
@@ -537,15 +562,17 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">
-    <div class="nav-logo-mark"><span></span><span></span><span></span><span></span></div>
-    Deloitte · AI Agents
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-logo-mark"><span></span><span></span><span></span><span></span></div>
+      Deloitte · AI Agents
+    </div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#agents">Agents</a>
+    </div>
+    <div class="nav-meta">8 Agents · Dynamics 365 · 2025</div>
   </div>
-  <div class="nav-links">
-    <a href="#overview">Overview</a>
-    <a href="#agents">Agents</a>
-  </div>
-  <div class="nav-meta">8 Agents · Dynamics 365 · 2025</div>
 </nav>
 
 <!-- HERO -->
@@ -558,22 +585,22 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
   <div class="hero-orb"></div>
   <div class="hero-corner hc-tl"></div><div class="hero-corner hc-tr"></div>
   <div class="hero-corner hc-bl"></div><div class="hero-corner hc-br"></div>
-  <div class="container" style="height:100%; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; position:relative;">
-  <div class="hero-eyebrow">Agentic AI · Microsoft Dynamics 365 Sales</div>
-  <h1 class="hero-h1">
-    <div>Deloitte</div>
-    <div><span class="stroke">AI Agent</span></div>
-    <div><span class="lime">MSD</span></div>
-  </h1>
-  <div class="hero-sub-row">
-    <p class="hero-subtitle">Reimagining Sales in the Agentic AI Era — autonomous intelligence, embedded where work happens.</p>
-    <div class="hero-meta-block">
-      <span>Confidential · Internal Use</span>
-      <span>Sales Transformation · 2025</span>
-      <span>Microsoft Dynamics 365</span>
+    <div class="container hero-inner">
+    <div class="hero-eyebrow">Agentic AI · Microsoft Dynamics 365 Sales</div>
+    <h1 class="hero-h1">
+      <div>Deloitte</div>
+      <div><span class="stroke">AI Agent</span></div>
+      <div><span class="lime">MSD</span></div>
+    </h1>
+    <div class="hero-sub-row">
+      <p class="hero-subtitle">Reimagining Sales in the Agentic AI Era — autonomous intelligence, embedded where work happens.</p>
+      <div class="hero-meta-block">
+        <span>Confidential · Internal Use</span>
+        <span>Sales Transformation · 2025</span>
+        <span>Microsoft Dynamics 365</span>
+      </div>
     </div>
-  </div>
-  <div class="hero-scroll"><span>Scroll</span><div class="scroll-tick"></div></div>
+    <div class="hero-scroll"><span>Scroll</span><div class="scroll-tick"></div></div>
   </div>
 </section>
 
@@ -619,18 +646,19 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
 <section id="agents">
   <div class="section-num">03 / AGENTS</div>
   <div class="container">
-  <div class="gallery-header reveal">
-    <div>
+    <div class="gallery-header reveal">
+    <div class="gallery-copy">
       <div class="eyebrow eyebrow-lime">The Collection</div>
       <h2 class="gallery-title">Agent<br/>Gallery</h2>
     </div>
     <div class="gallery-aside">
-      <div style="margin-bottom:10px;"><div class="cat-tag cat-lime">◉ &nbsp;AI Agents &nbsp;·&nbsp; 06</div></div>
-      <div><div class="cat-tag cat-amber">◈ &nbsp;Industry Solutions &nbsp;·&nbsp; 02</div></div>
+      <div class="gallery-tags">
+        <div class="cat-tag cat-lime">◉ &nbsp;AI Agents &nbsp;·&nbsp; 06</div>
+        <div class="cat-tag cat-amber">◈ &nbsp;Industry Solutions &nbsp;·&nbsp; 02</div>
+      </div>
       <div class="gallery-hint">Click any card to explore</div>
     </div>
   </div>
-
   <div class="gallery-grid">
 
     <!-- 01 Lead Generation -->
@@ -698,18 +726,14 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
       <div class="c-value">Manages the full quote-to-order lifecycle — fast conversion, end-to-end tracking, and direct service case integration from one place.</div>
       <div class="c-cta cta-l">Explore Agent <span class="arr">→</span></div>
     </div>
-
-    <!-- Spacer for 3-col alignment (hidden on mobile/tablet) -->
-    <div style="background:transparent;border:none;min-height:0;padding:0;display:none;" class="grid-spacer"></div>
-
-    <!-- INDUSTRY ROW -->
+<!-- INDUSTRY ROW -->
     <div class="ind-row">
 
       <!-- 07 Wealth Concierge -->
       <div class="ind-card reveal" data-agent="wealth">
         <div class="c-glow amber-glow-el"></div>
         <div class="ind-main">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:.6rem;letter-spacing:.2em;color:var(--faint);margin-bottom:16px;">07</div>
+          <div class="ind-serial">07</div>
           <div class="c-type text-a"><span class="c-dot dot-a"></span>Industry · Financial Services</div>
           <div class="c-name">Wealth Concierge Agent</div>
           <div class="c-rule"></div>
@@ -729,7 +753,7 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
       <div class="ind-card reveal d1" data-agent="investment">
         <div class="c-glow amber-glow-el"></div>
         <div class="ind-main">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:.6rem;letter-spacing:.2em;color:var(--faint);margin-bottom:16px;">08</div>
+          <div class="ind-serial">08</div>
           <div class="c-type text-a"><span class="c-dot dot-a"></span>Industry · Financial Services</div>
           <div class="c-name">Investment Concierge Agent</div>
           <div class="c-rule"></div>
@@ -1054,15 +1078,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ═══ 3-COL SPACER ═══ */
-// Show spacer only when 3-col grid is active
-function checkSpacer() {
-  const sp = document.querySelector('.grid-spacer');
-  if (!sp) return;
-  sp.style.display = window.innerWidth > 1024 ? 'block' : 'none';
-}
-checkSpacer();
-window.addEventListener('resize', checkSpacer);
 </script>
 </body>
 </html>
+
+
