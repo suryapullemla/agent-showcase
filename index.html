@@ -265,7 +265,9 @@ nav.compact {
 .g-card,
 .ind-card {
   min-height: 320px;
-  height: 100%;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  object-fit: cover;
 }
 .ind-row {
   grid-column: span 3;
@@ -556,7 +558,7 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
   <div class="hero-orb"></div>
   <div class="hero-corner hc-tl"></div><div class="hero-corner hc-tr"></div>
   <div class="hero-corner hc-bl"></div><div class="hero-corner hc-br"></div>
-  <div class="container" style="height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start; position:relative;">
+  <div class="container" style="height:100%; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; position:relative;">
   <div class="hero-eyebrow">Agentic AI · Microsoft Dynamics 365 Sales</div>
   <h1 class="hero-h1">
     <div>Deloitte</div>
