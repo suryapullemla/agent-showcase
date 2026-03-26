@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -129,7 +129,7 @@ nav.compact {
 
 /* ════ HERO ════ */
 #hero {
-  position: relative; height: 100vh; min-height: 600px;
+  position: relative; height: 85vh; min-height: 520px;
   display: flex; flex-direction: column; justify-content: flex-end;
   padding: 0 0 10vh; overflow: hidden;
 }
@@ -169,20 +169,21 @@ nav.compact {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;  
+  padding-bottom: 6vh;
   align-items: flex-start;
   position: relative;
 }
 .hero-eyebrow {
   font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--lime); font-weight: 600;
-  display: flex; align-items: center; gap: 14px; margin-bottom: 30px;
+  display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
   opacity: 0; animation: slideUp 1s 0.2s var(--ease) forwards;
 }
 .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--lime); }
 .hero-h1 {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(4rem, 13.5vw, 14.5rem);
+  font-size: clamp(3rem, 10vw, 10rem);
   line-height: 0.9;
   letter-spacing: -0.01em;
 
@@ -198,12 +199,12 @@ nav.compact {
 .hero-h1 .lime { color: var(--lime); display: block; }
 .hero-sub-row {
   display: flex; align-items: flex-end; justify-content: space-between;
-  margin-top: 36px; gap: 40px;
+  margin-top: 20px; gap: 24px;
   opacity: 0; animation: slideUp 1s 0.46s var(--ease) forwards;
 }
 .hero-subtitle {
   font-family: 'Instrument Serif', serif; font-style: italic;
-  font-size: clamp(0.9rem, 1.8vw, 1.4rem);
+  font-size: clamp(0.8rem, 1.4vw, 1.1rem);
   color: var(--muted); max-width: 400px; line-height: 1.65;
 }
 .hero-meta-block { text-align: right; flex-shrink: 0; }
@@ -625,7 +626,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 
 <!-- FLOW -->
 <section id="flow">
-  <div class="section-num">02 / SALES PROCESS</div>
+  <div class="section-num">SALES PROCESS</div>
   <div class="container">
   <div class="flow-title reveal">Agent Coverage Across the Sales Cycle</div>
   <div class="flow-outer reveal d1">
@@ -644,7 +645,7 @@ footer .container { display: flex; align-items: center; justify-content: space-b
 
 <!-- GALLERY -->
 <section id="agents">
-  <div class="section-num">03 / AGENTS</div>
+  <div class="section-num">08 / AGENTS</div>
   <div class="container">
     <div class="gallery-header reveal">
     <div class="gallery-copy">
