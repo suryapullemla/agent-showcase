@@ -157,21 +157,77 @@ nav.compact {
   animation: orbPulse 8s ease-in-out infinite; pointer-events: none;
 }
 @keyframes orbPulse { 0%,100%{transform:scale(1);opacity:.6} 50%{transform:scale(1.18);opacity:1} }
-.hero-corner { position: absolute; width: 22px; height: 22px; opacity: 0.22; }
-.hero-corner::before,.hero-corner::after { content:''; position: absolute; background: var(--lime); }
-.hero-corner::before { width: 100%; height: 1px; }
-.hero-corner::after { width: 1px; height: 100%; }
-.hc-tl{top:80px;left: var(--edge-offset);} .hc-tr{top:80px;right: var(--edge-offset);}
-.hc-tr::before{right:0;} .hc-tr::after{right:0;}
-.hc-bl{bottom:10vh;left: var(--edge-offset);} .hc-bl::after{bottom:0;}
-.hc-br{bottom:10vh;right: var(--edge-offset);} .hc-br::before{right:0;} .hc-br::after{right:0;bottom:0;}
+.hero-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  opacity: 0.4;
+}
+
+.hero-corner::before,
+.hero-corner::after {
+  content: '';
+  position: absolute;
+  background: var(--lime);
+}
+
+/* horizontal line */
+.hero-corner::before {
+  height: 2px;
+  width: 100%;
+}
+
+/* vertical line */
+.hero-corner::after {
+  width: 2px;
+  height: 100%;
+}
+
+/* TOP LEFT */
+.hc-tl {
+  top: 0;
+  left: 0;
+}
+
+/* TOP RIGHT */
+.hc-tr {
+  top: 0;
+  right: 0;
+}
+.hc-tr::before { right: 0; }
+.hc-tr::after { right: 0; }
+
+/* BOTTOM LEFT */
+.hc-bl {
+  bottom: 0;
+  left: 0;
+}
+.hc-bl::after { bottom: 0; }
+
+/* BOTTOM RIGHT */
+.hc-br {
+  bottom: 0;
+  right: 0;
+}
+.hc-br::before { right: 0; }
+.hc-br::after { right: 0; bottom: 0; }
+
+.hero-frame {
+  max-width: 900px;
+  position: relative;
+  display: inline-block;
+  padding: 40px 60px 60px 0;
+}
 .hero-inner {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;  
-  padding-bottom: 6vh;
+
+  justify-content: flex-start;   
   align-items: flex-start;
+
+  padding-top: 140px;            
+  padding-bottom: 80px;          
   position: relative;
 }
 .hero-eyebrow {
@@ -584,24 +640,26 @@ footer .container { display: flex; align-items: center; justify-content: space-b
     <div class="hg-v"></div><div class="hg-v"></div>
   </div>
   <div class="hero-orb"></div>
-  <div class="hero-corner hc-tl"></div><div class="hero-corner hc-tr"></div>
-  <div class="hero-corner hc-bl"></div><div class="hero-corner hc-br"></div>
     <div class="container hero-inner">
-    <div class="hero-eyebrow">Agentic AI · Microsoft Dynamics 365 Sales</div>
-    <h1 class="hero-h1">
-      <div>Deloitte</div>
-      <div><span class="stroke">AI Agent</span></div>
-      <div><span class="lime">MSD</span></div>
-    </h1>
-    <div class="hero-sub-row">
-      <p class="hero-subtitle">Reimagining Sales in the Agentic AI Era — autonomous intelligence, embedded where work happens.</p>
-      <div class="hero-meta-block">
-        <span>Confidential · Internal Use</span>
-        <span>Sales Transformation · 2025</span>
-        <span>Microsoft Dynamics 365</span>
+    <div class="hero-frame">
+      <div class="hero-eyebrow">Agentic AI · Microsoft Dynamics 365 Sales</div>
+      <h1 class="hero-h1">
+        <div>Deloitte</div>
+        <div><span class="stroke">AI Agent</span></div>
+        <div><span class="lime">MSD</span></div>
+      </h1>
+      <div class="hero-sub-row">
+        <p class="hero-subtitle">Reimagining Sales in the Agentic AI Era — autonomous intelligence, embedded where work happens.</p>
+        <div class="hero-meta-block">
+          <span>Confidential · Internal Use</span>
+          <span>Sales Transformation · 2025</span>
+          <span>Microsoft Dynamics 365</span>
+        </div>
       </div>
+      <div class="hero-scroll"><span>Scroll</span><div class="scroll-tick"></div></div>
+      <div class="hero-corner hc-tl"></div><div class="hero-corner hc-tr"></div>
+      <div class="hero-corner hc-bl"></div><div class="hero-corner hc-br"></div>
     </div>
-    <div class="hero-scroll"><span>Scroll</span><div class="scroll-tick"></div></div>
   </div>
 </section>
 
