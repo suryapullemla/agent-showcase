@@ -164,10 +164,15 @@ nav.compact {
 .hero-h1 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(4rem, 13.5vw, 14.5rem);
-  line-height: 1; letter-spacing: -0.01em;
-  opacity: 0; animation: slideUp 1s 0.32s var(--ease) forwards;
-  display: grid; grid-template-columns: 1fr; gap: 0;
-  word-spacing: 9999px;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+
+  word-spacing: normal;
 }
 .hero-h1 br { content: ''; display: block; margin: 0; }
 .hero-h1 .stroke { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.13); display: block; }
@@ -252,8 +257,30 @@ nav.compact {
 .gallery-hint { font-family: 'Bebas Neue', sans-serif; font-size: 0.62rem; letter-spacing: 0.18em; color: var(--faint); margin-top: 12px; }
 
 /* ── GRID (Natural DOM Order) ── */
-.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-.ind-row { display: contents; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.g-card,
+.ind-card {
+  min-height: 320px;
+  height: 100%;
+}
+.ind-row {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.ind-card {
+  grid-column: span 1;
+}
+.ind-card:first-child {
+  grid-column: 1 / 2;
+}
+.ind-card:last-child {
+  grid-column: 3 / 4;
+}
 
 /* ── BASE CARD ── */
 .g-card {
