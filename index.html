@@ -785,7 +785,7 @@ const AGENTS = {
     title: 'Lead Generation Agent',
     overview: 'Engages customers on community portals and websites, providing product features, highlights, and comparisons — then automatically captures and routes qualified leads into Dynamics 365 around the clock, without manual intervention.',
     insight: '61% of marketers say generating traffic and leads is their top challenge.',
-    demoVideo: '', // Add URL here e.g. 'https://youtu.be/...'
+    demoVideo: 'video/LeadGenerationAgent.mp4', // Add URL here e.g. 'https://youtu.be/...'
     features: [
       { name: 'Conversational Engagement', detail: 'Interacts with website visitors in natural language, answering product queries and capturing intent signals in real time.' },
       { name: 'Automated Lead Capture', detail: 'Collects name, contact details, requirements, and preferences — eliminating manual data entry entirely.' },
@@ -799,7 +799,7 @@ const AGENTS = {
     type: 'Assistance Agent', accent: 'lime',
     title: 'Sales Coach Agent',
     overview: 'Acts as a virtual assistant for sales representatives, guiding them through every stage of the sales process — from lead qualification to deal closure. Customisable to match an organisation\'s unique sales methodology and trained on its knowledge base to drive consistent performance.',
-    demoVideo: '',
+    demoVideo: 'video/SalesCoachAgent.mp4',
     features: [
       { name: 'Guided Sales Process', detail: 'Provides real-time, step-by-step guidance throughout the entire sales lifecycle — from first contact to close.' },
       { name: 'Contextual Assistance', detail: 'Suggests best next actions based on company processes, historical patterns, and established best practices.' },
@@ -813,7 +813,7 @@ const AGENTS = {
     type: 'Semi-Autonomous Agent', accent: 'lime',
     title: 'DealNavigator Agent',
     overview: 'Introduces GenAI-powered capabilities to help sales reps engage leads with relevant context, nurture relationships systematically, qualify leads predictively, and track pipeline progress visually. A ready-to-import next-generation seller experience.',
-    demoVideo: '',
+    demoVideo: 'video/DealNavigatorAgent.mp4',
     features: [
       { name: 'Conversation Starters', detail: 'AI-powered icebreakers generated from recent company news, industry signals, and prospect activity.' },
       { name: 'Guided Lead Nurturing', detail: 'Automated workflows orchestrating emails, pitches, and follow-ups based on rep activity and engagement scores.' },
@@ -828,7 +828,7 @@ const AGENTS = {
     type: 'Semi-Autonomous Agent', accent: 'lime',
     title: 'Opportunity Agent',
     overview: 'Introduces GenAI-powered capabilities to help sales reps engage opportunities with full context, nurture relationships, qualify them predictively, and track pipeline progress — eliminating guesswork and reducing manual research effort across the board.',
-    demoVideo: '',
+    demoVideo: 'video/OpportunityAgent.mp4',
     features: [
       { name: 'Opportunity Score', detail: 'AI-driven scoring model that predicts the likelihood of winning each opportunity based on multiple signals.' },
       { name: 'Opportunity Next Steps', detail: 'Clear visibility into upcoming activities and AI-recommended action sequences for each deal.' },
@@ -842,7 +842,7 @@ const AGENTS = {
     title: 'Smart Quoting & Approvals Agent',
     overview: 'Leverages GenAI to streamline the entire quote lifecycle — providing a 360° view of all quotes, predicting acceptance likelihood, automating low-value approvals, and generating customer-ready documents with a single click.',
     insight: '12.8% of a sales rep\'s time is spent on internal policies and approvals. This agent reclaims it.',
-    demoVideo: '',
+    demoVideo: 'video/SmartQuotingAgent.mp4',
     features: [
       { name: 'Quote Summary', detail: 'Holistic view of all quotes related to an opportunity, providing complete commercial context at a glance.' },
       { name: 'Acceptance Prediction', detail: 'AI-driven likelihood scoring for each quote to inform pricing strategy and negotiation decisions.' },
@@ -857,7 +857,7 @@ const AGENTS = {
     type: 'Semi-Autonomous Agent', accent: 'lime',
     title: 'Order Agent',
     overview: 'Provides a robust platform to manage the full post-sale lifecycle — including quote-to-order conversions, end-to-end order tracking, and direct service case integration — creating a single source of truth across sales and service teams.',
-    demoVideo: '',
+    demoVideo: 'video/OrderAgent.mp4',
     features: [
       { name: 'Quote to Order Conversion', detail: 'Fast and accurate conversion with all opportunity data carried forward automatically — no re-entry required.' },
       { name: 'Order Tracking', detail: 'End-to-end visibility into order status and fulfilment progress for both sales and service teams.' },
@@ -884,7 +884,7 @@ const AGENTS = {
     type: 'Assistance Agent · Financial Services', accent: 'amber',
     title: 'Investment Concierge Agent',
     overview: 'A Copilot-driven assistant designed for investment banking and advisory teams. Automates meeting preparation, summarises discussions, generates structured follow-ups, and provides deep financial analysis using real-time data and industry benchmarks — all within Dynamics 365.',
-    demoVideo: '',
+    demoVideo: 'video/InvestmentConciergeAgent.mp4',
     features: [
       { name: 'Meeting Prep', detail: 'AI-generated summaries of all past interactions and key client context, ready before every meeting starts.' },
       { name: 'Financial Analysis', detail: 'Benchmarks and performance insights drawn from real-time financial data and relevant market comparators.' },
@@ -944,14 +944,11 @@ function openModal(key) {
   const videoEl = document.getElementById('m-video');
   if (a.demoVideo && a.demoVideo.trim() !== '') {
     videoEl.innerHTML = `
-      <a class="modal-video-link ${isAmber ? 'amber-vid' : ''}" href="${a.demoVideo}" target="_blank" rel="noopener noreferrer">
-        <div class="vid-play">▶</div>
-        <div class="vid-info">
-          <span class="vid-label">Demo Video</span>
-          <span class="vid-title">Watch ${a.title} in action</span>
-        </div>
-        <span class="vid-arrow">→</span>
-      </a>`;
+      <video controls autoplay style="width:100%; border:1px solid #333;">
+        <source src="${a.demoVideo}" type="video/mp4">
+        Your browser does not support video.
+      </video>
+    `;
   } else {
     videoEl.innerHTML = `
       <div class="vid-coming">
