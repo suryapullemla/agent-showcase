@@ -164,11 +164,14 @@ nav.compact {
 .hero-h1 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(4rem, 13.5vw, 14.5rem);
-  line-height: 0.875; letter-spacing: -0.01em;
+  line-height: 1; letter-spacing: -0.01em;
   opacity: 0; animation: slideUp 1s 0.32s var(--ease) forwards;
+  display: grid; grid-template-columns: 1fr; gap: 0;
+  word-spacing: 9999px;
 }
-.hero-h1 .stroke { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.13); }
-.hero-h1 .lime { color: var(--lime); }
+.hero-h1 br { content: ''; display: block; margin: 0; }
+.hero-h1 .stroke { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.13); display: block; }
+.hero-h1 .lime { color: var(--lime); display: block; }
 .hero-sub-row {
   display: flex; align-items: flex-end; justify-content: space-between;
   margin-top: 36px; gap: 40px;
@@ -543,12 +546,12 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
   <div class="hero-orb"></div>
   <div class="hero-corner hc-tl"></div><div class="hero-corner hc-tr"></div>
   <div class="hero-corner hc-bl"></div><div class="hero-corner hc-br"></div>
-  <div class="container" style="height:100%; display:flex; flex-direction:column; justify-content:flex-end; position:relative;">
+  <div class="container" style="height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start; position:relative;">
   <div class="hero-eyebrow">Agentic AI · Microsoft Dynamics 365 Sales</div>
   <h1 class="hero-h1">
-    Deloitte<br/>
-    <span class="stroke">AI&nbsp;Agent</span><br/>
-    <span class="lime">MSD</span>
+    <div>Deloitte</div>
+    <div><span class="stroke">AI Agent</span></div>
+    <div><span class="lime">MSD</span></div>
   </h1>
   <div class="hero-sub-row">
     <p class="hero-subtitle">Reimagining Sales in the Agentic AI Era — autonomous intelligence, embedded where work happens.</p>
@@ -593,7 +596,7 @@ footer { border-top: 1px solid var(--border); padding: 36px var(--container-padd
       <div class="flow-stage"><div class="flow-node">◈</div><div class="flow-name">Qualify</div><div class="flow-chips"><div class="flow-chip">DealNavigator Agent</div><div class="flow-chip">Sales Coach Agent</div></div></div>
       <div class="flow-stage"><div class="flow-node">◇</div><div class="flow-name">Develop</div><div class="flow-chips"><div class="flow-chip">Opportunity Agent</div><div class="flow-chip">Sales Coach Agent</div></div></div>
       <div class="flow-stage"><div class="flow-node">◻</div><div class="flow-name">Propose</div><div class="flow-chips"><div class="flow-chip">Smart Quoting Agent</div><div class="flow-chip">Opportunity Agent</div></div></div>
-      <div class="flow-stage"><div class="flow-node">★</div><div class="flow-name">Close</div><div class="flow-chips"><div class="flow-chip">Order Agent</div><div class="flow-chip">Wealth Concierge</div><div class="flow-chip">Investment Concierge</div></div></div>
+      <div class="flow-stage"><div class="flow-node">★</div><div class="flow-name">Close</div><div class="flow-chips"><div class="flow-chip">Order Agent</div></div></div>
     </div>
   </div>
   <div class="rule" style="margin-top:80px;"></div>
@@ -944,11 +947,35 @@ function openModal(key) {
   const videoEl = document.getElementById('m-video');
   if (a.demoVideo && a.demoVideo.trim() !== '') {
     videoEl.innerHTML = `
-      <video controls autoplay style="width:100%; border:1px solid #333;">
-        <source src="${a.demoVideo}" type="video/mp4">
-        Your browser does not support video.
-      </video>
+      <div style="position:relative; width:100%; background:#000; border:1px solid #333;">
+        <video id="agent-video" style="width:100%; display:block;">
+          <source src="${a.demoVideo}" type="video/mp4">
+          Your browser does not support video.
+        </video>
+        <button id="video-play-btn" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:60px; height:60px; border-radius:50%; border:2px solid #c6f135; background:rgba(0,0,0,0.6); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:24px; color:#c6f135; transition:all 0.3s; z-index:10;">
+          ▶
+        </button>
+      </div>
     `;
+    setTimeout(() => {
+      const video = document.getElementById('agent-video');
+      const playBtn = document.getElementById('video-play-btn');
+      if (video && playBtn) {
+        playBtn.addEventListener('click', () => {
+          video.play();
+          playBtn.style.opacity = '0';
+          playBtn.style.pointerEvents = 'none';
+        });
+        video.addEventListener('play', () => {
+          playBtn.style.opacity = '0';
+          playBtn.style.pointerEvents = 'none';
+        });
+        video.addEventListener('pause', () => {
+          playBtn.style.opacity = '1';
+          playBtn.style.pointerEvents = 'auto';
+        });
+      }
+    }, 0);
   } else {
     videoEl.innerHTML = `
       <div class="vid-coming">
@@ -981,6 +1008,12 @@ function openModal(key) {
 function closeModal() {
   overlay.classList.remove('open');
   document.body.style.overflow = '';
+  // Stop and reset video
+  const video = document.getElementById('agent-video');
+  if (video) {
+    video.pause();
+    video.currentTime = 0;
+  }
 }
 
 document.querySelectorAll('[data-agent]').forEach(card => {
